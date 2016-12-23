@@ -498,7 +498,7 @@ defmodule Ecto.Query do
   @binds    [:where, :or_where, :select, :distinct, :order_by, :group_by,
              :having, :limit, :offset, :preload, :update]
   @no_binds [:lock]
-  @joins    [:join, :inner_join, :cross_join, :left_join, :right_join, :full_join, :left_lateral_join]
+  @joins    [:join, :inner_join, :cross_join, :left_join, :right_join, :full_join, :left_join_lateral]
 
   defp from([{type, expr}|t], env, count_bind, quoted, binds) when type in @binds do
     # If all bindings are integer indexes keep AST Macro expandable to %Query{},
@@ -536,7 +536,7 @@ defmodule Ecto.Query do
         :right_join -> :right
         :full_join  -> :full
         :cross_join -> :cross
-        :left_lateral_join -> :left_lateral
+        :left_join_lateral -> :left_lateral
       end
 
     {t, on} = collect_on(t, nil)
